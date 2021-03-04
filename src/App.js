@@ -11,7 +11,7 @@ class App extends Component {
           <button type="button" className="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
             <span className="navbar-toggler-icon" />
           </button>
-          {/* Collection of nav links, forms, and other content for toggling */}
+          {/* Coleção de links e formulários */}
           <div id="navbarCollapse" className="collapse navbar-collapse justify-content-start">		
             <form className="navbar-form form-inline">
               <div className="input-group search-box">								
