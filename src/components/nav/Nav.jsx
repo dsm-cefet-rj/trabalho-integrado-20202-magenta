@@ -1,6 +1,6 @@
 import './Nav.css';
 import React from 'react';
-import avatar from '../../assets/avatar.jpeg';
+import avatar from '../../styles/assets/avatar.jpeg';
 import {Link} from 'react-router-dom';
 
 export default props =>
@@ -16,14 +16,11 @@ export default props =>
                 <Link to="/main">
                     <a className="nav-item nav-link"><i className="fa fa-home" /><span>Principal</span></a>
                 </Link>
-                <Link to="/demand">
+                <Link to="/demands">
                     <a className="nav-item nav-link"><i className="fa fa-gears" /><span>Demandas</span></a>
                 </Link>
-                <Link to="/menssages">
+                <Link to="/messages">
                     <a className="nav-item nav-link"><i className="fa fa-envelope" /><span>Mensagens</span></a>
-                </Link>
-                <Link to="/notifications">
-                    <a href="#" className="nav-item nav-link"><i className="fa fa-bell" /><span>Notificações</span></a>
                 </Link>
 
                 <div className="nav-item dropdown">

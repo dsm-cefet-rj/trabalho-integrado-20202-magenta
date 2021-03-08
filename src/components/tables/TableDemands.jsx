@@ -1,32 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 
+import "../../styles/css/estilo.css";
 
-import Nav from '../src/components/nav/Nav';
-import AddModal from './pages/modals/addModal/AddModal';
-import EditModal from './pages/modals/editModal/EditModal';
-import DeleteModal from './pages/modals/deleteModal/DeleteModal';
-import "../src/css/estilo.css"
-
-export default function Main({ history }) {
+export default function TableDemands() {
     return (
-        <>
-            <Nav />
-            <div className="App">
-                <div className="container-xl">
-                    <div className="table-responsive">
-                        <div className="table-wrapper">
-                            <div className="table-title">
-                                <div className="row">
-                                    <div className="col-sm-6">
-                                        <h2>Visualizar Demandas</h2>
-                                    </div>
-                                    <div className="col-sm-6">
-                                        <a href="#addEmployeeModal" className="btn btn-success" data-toggle="modal"><i className="material-icons"></i> <span>Criar nova Demanda</span></a>
-                                        <a href="#deleteEmployeeModal" className="btn btn-danger" data-toggle="modal"><i className="material-icons"></i> <span>Cancelar Demanda</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <table className="table table-striped table-hover">
+        <table className="table table-striped table-hover">
                                 <thead>
                                     <tr>
                                         <th>
@@ -125,25 +103,8 @@ export default function Main({ history }) {
                                     </tr>
                                 </tbody>
                             </table>
-                            <div className="clearfix">
-                                <div className="hint-text">Mostrando <b>5</b> de <b>25</b> Demandas</div>
-                                <ul className="pagination">
-                                    <li className="page-item disabled"><a href="#">Anterior</a></li>
-                                    <li className="page-item"><a href="#" className="page-link">1</a></li>
-                                    <li className="page-item"><a href="#" className="page-link">2</a></li>
-                                    <li className="page-item active"><a href="#" className="page-link">3</a></li>
-                                    <li className="page-item"><a href="#" className="page-link">4</a></li>
-                                    <li className="page-item"><a href="#" className="page-link">5</a></li>
-                                    <li className="page-item"><a href="#" className="page-link">Próxima</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <AddModal/>
-                <EditModal/>
-                <DeleteModal/>
-            </div>
-        </>
-    );
+
+    )
 }
+
+
