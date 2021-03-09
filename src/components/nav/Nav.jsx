@@ -14,7 +14,7 @@ export default props =>
 
             <div className="navbar-nav ml-auto">
                 <Link to="/main">
-                    <a className="nav-item nav-link"><i className="fa fa-home" /><span>Principal</span></a>
+                    <a className="nav-item nav-link"><i className="fa fa-home" /><span>Perfil</span></a>
                 </Link>
                 <Link to="/demands">
                     <a className="nav-item nav-link"><i className="fa fa-gears" /><span>Demandas</span></a>

@@ -7,6 +7,7 @@ import Clearfix from '../../components/clearfix/Clearfix';
 import AddModal from '../modals/addModal/AddModal';
 import EditModal from '../modals/editModal/EditModal';
 import DeleteModal from '../modals/deleteModal/DeleteModal';
+import EditProfileButton from '../../components/buttons/EditProfileButton'
 import "../../styles/css/estilo.css"
 
 export default function Main({ history }) {
@@ -20,19 +21,28 @@ export default function Main({ history }) {
                             <div className="table-title">
                                 <div className="row">
                                     <div className="col-sm-6">
-                                        <h2>Visualizar Demandas</h2>
+                                        <h2>Gabriel Pacheco</h2>
                                     </div>
                                     <div className="col-sm-6">
+                                        <EditProfileButton/>
                                     </div>
                                 </div>
                             </div>
-                            <Clearfix/>
+                            <div>
+                                <div class="content">
+                                    <p>Especialidade: Programador</p>
+                                    <p>Idade: </p>
+                                    <p>Soft Skills: </p>
+                                    <p>Hard Skills: </p>
+                                    <p>Resumo: </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <AddModal/>
-                <EditModal/>
-                <DeleteModal/>
+                <AddModal />
+                <EditModal />
+                <DeleteModal />
             </div>
         </>
     );

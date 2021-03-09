@@ -19,14 +19,12 @@ export default function Messages({ history }) {
                             <div className="table-title">
                                 <div className="row">
                                     <div className="col-sm-6">
-                                        <h2>Visualizar Demandas</h2>
+                                        <h2>Mensagens</h2>
                                     </div>
                                     <div className="col-sm-6">
                                     </div>
                                 </div>
                             </div>
-                            <TableDemands/>
-                            <Clearfix/>
                         </div>
                     </div>
                 </div>
