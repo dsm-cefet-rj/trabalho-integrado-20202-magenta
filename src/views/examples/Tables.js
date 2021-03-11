@@ -51,7 +51,7 @@ const Tables = () => {
           <div className="col">
             <Card className="shadow">
               <CardHeader className="border-0">
-                <h3 className="mb-0">Gerencias Demandas</h3>
+                <h3 className="mb-0">Demanda de Gerencias</h3>
               </CardHeader>
               <Table className="align-items-center table-flush" responsive>
                 <thead className="thead-light">
@@ -1017,7 +1017,7 @@ const Tables = () => {
                           delay={0}
                           target="tooltip731399078"
                         >
-                          Ryan Tompson
+                          Gabriel Pacheco
                         </UncontrolledTooltip>
                         <a
                           className="avatar avatar-sm"
@@ -1059,7 +1059,7 @@ const Tables = () => {
                           delay={0}
                           target="tooltip528540780"
                         >
-                          Alexander Smith
+                          Rodrigo Campos
                         </UncontrolledTooltip>
                         <a
                           className="avatar avatar-sm"
