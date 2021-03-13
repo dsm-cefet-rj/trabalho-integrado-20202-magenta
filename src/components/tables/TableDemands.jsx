@@ -46,8 +46,8 @@ export default function TableDemands() {
                     </td>
                     <td>#002</td>
                     <td>João Victor</td>
-                    <td>05/05/2021</td>
-                    <td><span className="status text-success">•</span> Ativo</td>
+                    <td>05/05/2021</td><td><span className="status text-success">•</span> Ativo</td>
+                    
                     <td>
                         <a href="#editEmployeeModal" className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Editar"></i></a>
                         <a href="#deleteEmployeeModal" className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Cancelar"></i></a>
