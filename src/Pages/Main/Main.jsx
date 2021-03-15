@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 
-import Nav from '../../components/nav/Nav';
-import TableDemands from '../../components/tables/TableDemands';
-import Clearfix from '../../components/clearfix/Clearfix';
-import AddModal from '../modals/addModal/AddModal';
-import EditModal from '../modals/editModal/EditModal';
-import DeleteModal from '../modals/deleteModal/DeleteModal';
-import EditProfileButton from '../../components/buttons/EditProfileButton'
-import "../../styles/css/estilo.css"
+import Nav from '../../Components/nav/Nav';
+import TableDemands from '../../Components/tables/TableDemands';
+import Clearfix from '../../Components/clearfix/Clearfix';
+import AddModal from '../Modals/addModal/AddModal';
+import EditModal from '../Modals/editModal/EditModal';
+import DeleteModal from '../Modals/deleteModal/DeleteModal';
+import EditProfileButton from '../../Components/buttons/EditProfileButton'
+import "../../Styles/css/estilo.css"
 
 export default function Main({ history }) {
     return (

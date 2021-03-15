@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import './styles/css/login.css'
+import '../../Styles/css/login.css'
 
 export default function Login({ history }) {
     

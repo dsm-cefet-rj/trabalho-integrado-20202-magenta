@@ -1,6 +1,6 @@
 import React from 'react';
 
-import "../../styles/css/estilo.css";
+import "../../Styles/css/estilo.css";
 
 export default function TableDemands() {
     return (
