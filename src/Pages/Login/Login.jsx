@@ -9,14 +9,14 @@ export default function Login({ history }) {
     }
     return (
         <div id="page-home">
-        <div class="content">
+        <div className="content">
             <main>
 
                 <h1>Hour Exchange</h1>
                 <p>Ajudamos pessoas a realizarem permutas de trabalho de forma eficiente e justa.</p>
                 
-                <a type="submit" onClick={handleValidation} ><strong>Entrar</strong></a>
-
+                <a type="submit" onClick={handleValidation}><strong>Entrar</strong></a>
+                
             </main>
             
         </div>

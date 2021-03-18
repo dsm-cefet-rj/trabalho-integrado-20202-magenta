@@ -29,7 +29,7 @@ export default function Main({ history }) {
                                 </div>
                             </div>
                             <div>
-                                <div class="content">
+                                <div className="content">
                                     <p>Especialidade: Programador</p>
                                     <p>Idade: </p>
                                     <p>Soft Skills: </p>

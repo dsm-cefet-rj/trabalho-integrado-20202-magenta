@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import { validate as uuidValidate } from 'uuid';
 import { NIL as NIL_UUID } from 'uuid';
+
+import { allDemands } from '../../store/actions/demands';
 
 import Nav from '../../Components/nav/Nav';
 import TableDemands from '../../Components/tables/TableDemands';
@@ -16,20 +19,16 @@ import "../../Styles/css/estilo.css"
 
 
 
-export default function Demands({ history }) {
+ function Demands(props) {
 
+    const demands = [];
 
-    var demanda_example = {
-        "code": "001",
-        "title": "software maneiro",
-        "hours": "8 horas",
-        "specialty": "programador",
-        "deadline": "05/04/2021",
-        "description": "alguma demanda",
-        "status": "Ativo"
-    }
-
-    const [demands, setDemands] = useState([demanda_example]);
+    props.getDemands()
+    
+    // const demands = props.getDemands();
+    //const [ demands, setDemands ] = State([]);
+    
+    //console.log(props.getDemands().data)
 
     const [title, setTitle] = useState('');
     const [hours, setHours] = useState('');
@@ -37,7 +36,7 @@ export default function Demands({ history }) {
     const [deadline, setDeadline] = useState('');
     const [description, setDescription] = useState('');
 
-    const [editID, setEditID ] = useState(NIL_UUID);
+    const [ editID, setEditID ] = useState(NIL_UUID);
 
     function renderRows() {
 
@@ -63,7 +62,7 @@ export default function Demands({ history }) {
 
                         {demands.map(demand => {
                             return (
-                                <tr key={demand.code}>
+                                <tr key={demand.title}>
                                     <td>
                                         <span className="custom-checkbox">
                                             <input type="checkbox" id="checkbox1" name="options[]" defaultValue={1} />
@@ -86,22 +85,22 @@ export default function Demands({ history }) {
             </React.Fragment>
         )
     }
-    
+
     function save(event) {
         event.preventDefault()
         const code = 1;
         const newdemand = { code, title, hours, specialty, deadline, description }
-        setDemands([...demands, newdemand]);
+        // setDemands([...demands, newdemand]);
         clear()
     }
 
     function clear() {
-        setEditID('');
-        setTitle('');
-        setHours('');
-        setSpecialty('');
-        setDeadline('');
-        setDescription('');
+        // setEditID('');
+        // setTitle('');
+        // setHours('');
+        // setSpecialty('');
+        // setDeadline('');
+        // setDescription('');
     }
 
     function AddModal() {
@@ -123,7 +122,7 @@ export default function Demands({ history }) {
                                         <input type="text"
                                             className="form-control"
                                             value={title}
-                                            onChange={event => setTitle(event.target.value)}
+                                            // onChange={event => setTitle(event.target.value)}
                                             required />
                                     </div>
                                     <div className="form-group">
@@ -131,7 +130,7 @@ export default function Demands({ history }) {
                                         <input type="text"
                                             className="form-control"
                                             value={hours}
-                                            onChange={event => setHours(event.target.value)}
+                                            // onChange={event => setHours(event.target.value)}
                                             required />
                                     </div>
                                     <div className="form-group">
@@ -139,7 +138,7 @@ export default function Demands({ history }) {
                                         <input type="text"
                                             className="form-control"
                                             value={specialty}
-                                            onChange={event => setSpecialty(event.target.value)}
+                                            // onChange={event => setSpecialty(event.target.value)}
                                             required />
                                     </div>
                                     <div className="form-group">
@@ -147,7 +146,7 @@ export default function Demands({ history }) {
                                         <input type="date"
                                             className="form-control"
                                             value={deadline}
-                                            onChange={event => setDeadline(event.target.value)}
+                                            // onChange={event => setDeadline(event.target.value)}
                                             required />
                                     </div>
                                     <div className="form-group">
@@ -155,14 +154,14 @@ export default function Demands({ history }) {
                                         <textarea
                                             className="form-control"
                                             value={description}
-                                            onChange={event => setDescription(event.target.value)}
+                                            // onChange={event => setDescription(event.target.value)}
                                             required
                                         />
                                     </div>
                                 </div>
                                 <div className="modal-footer">
                                     <input type="button" className="btn btn-default" data-dismiss="modal" defaultValue="Fechar" />
-                                    <input type="submit" className="btn btn-success" onClick={event => save(event)} />
+                                    <input type="submit" className="btn btn-success" data-dismiss="modal" onClick={event => save(event)} />
                                 </div>
                             </form>
                         </div>
@@ -172,71 +171,97 @@ export default function Demands({ history }) {
         )
     }
 
-    function EditModal() {
+    // function EditModal() {
+    //     return (
+    //         <React.Fragment>
+    //             <div id="addEmployeeModal" className="modal fade">
+    //                 <div className="modal-dialog">
+    //                     <div className="modal-content">
+    //                         <form>
+    //                             <div className="modal-header">
+    //                                 <h4 className="modal-title">Inserir demanda</h4>
+    //                                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
+    //                             </div>
+    //                             <div className="modal-body">
+    //                                 <div className="form-group">
+    //                                     <label>Titulo da Demanda</label>
+    //                                     <input type="text"
+    //                                         className="form-control"
+    //                                         value={title}
+    //                                         onChange={event => setTitle(event.target.value)}
+    //                                         required />
+    //                                 </div>
+    //                                 <div className="form-group">
+    //                                     <label>Estimativa de Horas</label>
+    //                                     <input type="text"
+    //                                         className="form-control"
+    //                                         value={hours}
+    //                                         onChange={event => setHours(event.target.value)}
+    //                                         required />
+    //                                 </div>
+    //                                 <div className="form-group">
+    //                                     <label>Especialidade Necessária</label>
+    //                                     <input type="text"
+    //                                         className="form-control"
+    //                                         value={specialty}
+    //                                         onChange={event => setSpecialty(event.target.value)}
+    //                                         required />
+    //                                 </div>
+    //                                 <div className="form-group">
+    //                                     <label>Prazo de Entrega</label>
+    //                                     <input type="date"
+    //                                         className="form-control"
+    //                                         value={deadline}
+    //                                         onChange={event => setDeadline(event.target.value)}
+    //                                         required />
+    //                                 </div>
+    //                                 <div className="form-group">
+    //                                     <label>Descrição da Demanda</label>
+    //                                     <textarea
+    //                                         className="form-control"
+    //                                         value={description}
+    //                                         onChange={event => setDescription(event.target.value)}
+    //                                         required
+    //                                     />
+    //                                 </div>
+    //                             </div>
+    //                             <div className="modal-footer">
+    //                                 <input type="button" className="btn btn-default" data-dismiss="modal" defaultValue="Fechar" />
+    //                                 <button type="submit" className="btn btn-success close" onClick={event => save(event)}>Editar</button>
+    //                             </div>
+    //                         </form>
+    //                     </div>
+    //                 </div>
+    //             </div>
+    //         </React.Fragment>
+    //     )
+    // }
+
+    function DeleteModal(){
         return (
-            <React.Fragment>
-                <div id="addEmployeeModal" className="modal fade">
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <form>
-                                <div className="modal-header">
-                                    <h4 className="modal-title">Inserir demanda</h4>
-                                    <button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                </div>
-                                <div className="modal-body">
-                                    <div className="form-group">
-                                        <label>Titulo da Demanda</label>
-                                        <input type="text"
-                                            className="form-control"
-                                            value={title}
-                                            onChange={event => setTitle(event.target.value)}
-                                            required />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Estimativa de Horas</label>
-                                        <input type="text"
-                                            className="form-control"
-                                            value={hours}
-                                            onChange={event => setHours(event.target.value)}
-                                            required />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Especialidade Necessária</label>
-                                        <input type="text"
-                                            className="form-control"
-                                            value={specialty}
-                                            onChange={event => setSpecialty(event.target.value)}
-                                            required />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Prazo de Entrega</label>
-                                        <input type="date"
-                                            className="form-control"
-                                            value={deadline}
-                                            onChange={event => setDeadline(event.target.value)}
-                                            required />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Descrição da Demanda</label>
-                                        <textarea
-                                            className="form-control"
-                                            value={description}
-                                            onChange={event => setDescription(event.target.value)}
-                                            required
-                                        />
-                                    </div>
-                                </div>
-                                <div className="modal-footer">
-                                    <input type="button" className="btn btn-default" data-dismiss="modal" defaultValue="Fechar" />
-                                    <button type="submit" className="btn btn-success" onClick={event => save(event)}>Editar</button>
-                                </div>
-                            </form>
+            <div id="deleteEmployeeModal" className="modal fade">
+            <div className="modal-dialog">
+                <div className="modal-content">
+                    <form>
+                        <div className="modal-header">
+                            <h4 className="modal-title">Cancelar Demanda</h4>
+                            <button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
                         </div>
-                    </div>
+                        <div className="modal-body">
+                            <p>Você tem certeza que quer cancelar essa demanda?</p>
+                            <p className="text-warning"><small>Essa ação não poderá ser desfeita.</small></p>
+                        </div>
+                        <div className="modal-footer">
+                            <input type="button" className="btn btn-default" data-dismiss="modal" defaultValue="Voltar" />
+                            <input type="submit" className="btn btn-danger" defaultValue="Cancelar" />
+                        </div>
+                    </form>
                 </div>
-            </React.Fragment>
+            </div>
+        </div>
         )
     }
+
     return (
         <>
             <Nav />
@@ -259,10 +284,28 @@ export default function Demands({ history }) {
                         </div>
                     </div>
                 </div>
-                {AddModal()}
+                {/* {AddModal()} */}
                 <EditModal />
                 <DeleteModal />
             </div>
         </>
     );
 }
+
+function mapStateToProps(state){
+    return {
+        listDemands: state.demands
+    }
+
+}
+
+function mapActionCreatorsToProps(dispatch){
+    return {
+        getDemands(){
+            const action = allDemands();
+            dispatch(action);
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapActionCreatorsToProps)(Demands)

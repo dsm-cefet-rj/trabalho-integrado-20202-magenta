@@ -152,7 +152,7 @@ export default function Available_Demands({ history }) {
                                 <div className="table-title">
                                     <div className="row">
                                         <div className="col-sm-6">
-                                            <h2>Visualizar Minhas Demandas</h2>
+                                            <h2>Demandas Disponíveis</h2>
                                         </div>
                                         <div className="col-sm-6">
                                         </div>
