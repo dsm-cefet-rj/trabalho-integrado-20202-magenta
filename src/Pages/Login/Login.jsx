@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { useParams, useHistory } from "react-router-dom";
+import {useDispatch, useSelector} from 'react-redux';
+import { useForm } from "react-hook-form";
 
 import '../../Styles/css/login.css'
 
@@ -24,3 +27,34 @@ export default function Login({ history }) {
     )
 }
 
+export default function Autenticar(props){
+
+    const history = useHistory();
+    const dispatch = useDispatch()
+    const status = useSelector(state => state.logins.status);
+    
+ 
+    function onSubmit(login){
+        console.log(login);
+        dispatch(loginServer(login));
+    }
+
+    export default function Autenticar(props){
+
+    const history = useHistory();
+    const dispatch = useDispatch()
+    const status = useSelector(state => state.logins.status);
+    
+    const { register, handleSubmit, errors } = useForm();
+        
+    function onSubmit(login){
+        console.log(login);
+        dispatch(loginServer(login));
+    }
+
+    
+    useEffect(() => {
+        if (status === 'logged_in' ) {
+            history.push('/projetos');
+        }
+    }, [status])
