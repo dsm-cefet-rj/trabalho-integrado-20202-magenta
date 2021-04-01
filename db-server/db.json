@@ -1,0 +1,50 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "joao",
+      "email": "joao@gmail.com",
+      "password": "123456"
+    }
+  ],
+  "demands": [
+    { 
+      "id":1,
+      "code": "001",
+      "request": "joao",
+      "title": "software maneiro",
+      "hours": "8 horas",
+      "specialty": "programador",
+      "deadline": "05/04/2021",
+      "description": "alguma demanda",
+      "status": "Ativo",
+      "requestID": "1"
+    },
+    {
+      "id":2,
+      "code": "002",
+      "request": "joao",
+      "title": "software 2",
+      "hours": "16 horas",
+      "specialty": "programador",
+      "deadline": "05/04/2021",
+      "description": "alguma outra demanda",
+      "status": "Ativo",
+      "requestID": "1"
+    },
+    {
+      "code": "003",
+      "request": "joao",
+      "title": "logo para a empresa",
+      "hours": "20 horas",
+      "specialty": "Designer",
+      "deadline": "05/04/2021",
+      "description": "alguma outra demanda maneira",
+      "status": "Ativo",
+      "requestID": "1"
+    }
+  ],
+  "services": {
+    "name": "typicode"
+  }
+}

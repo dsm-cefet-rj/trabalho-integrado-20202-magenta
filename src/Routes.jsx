@@ -7,7 +7,7 @@ import Demands from './Pages/Demands/Demands';
 import AvailableDemands from './Pages/Available_Demands/Available_Demands';
 import Messages from './Pages/Messages/Messages';
 
-export default props =>
+export default (props) =>
     <Switch>
         <Route exact path='/' component={Login} />
         <Route path='/main' component={Main} />

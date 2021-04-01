@@ -1,13 +1,20 @@
-import { createStore, combineReducers } from 'redux';
+import { configureStore } from '@reduxjs/toolkit'
 
-import demandsReducer from './reducers/demands';
+import demandsReducer from './features/demand/DemandSlice'
 
-const reducers = combineReducers({
-    demands: demandsReducer,
+export const store = configureStore({
+    reducer: {
+        demands: demandsReducer
+    }
 })
 
-function storeConfig() {
-    return createStore(reducers);
-}
 
-export default storeConfig;
+// const reducers = combineReducers({
+//     demands: 'demandsReducer',
+// })
+
+// function storeConfig() {
+//     return createStore(reducers);
+// }
+
+// export default storeConfig;

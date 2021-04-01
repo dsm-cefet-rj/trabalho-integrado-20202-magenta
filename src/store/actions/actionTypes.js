@@ -1,0 +1,1 @@
+export const ALL_DEMANDS = 'ALL_DEMANDS'

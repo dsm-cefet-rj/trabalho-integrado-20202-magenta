@@ -1,6 +1,6 @@
 import api from '../../services/api';
 
-import { ALL_DEMANDS, ADD_DEMAND, EDIT_DEMAND } from './actionTypes';
+import { ALL_DEMANDS } from './actionTypes';
 
 
 // Action Creator
@@ -8,14 +8,12 @@ export  function allDemands() {
     return {
         type: 'ALL_DEMANDS',
         payload: 'testando action allDemands'
-            // data: () => api.get(`/demands`)
-        
     }
 }
 // Action Creator
 export function addDemand(demand) {
     return {
-        type: ADD_DEMAND,
+        type: 'ADD_DEMAND',
         payload: demand
     }
 }
@@ -23,7 +21,7 @@ export function addDemand(demand) {
 // Action Creator
 export function editDemand(demand) {
     return {
-        type: EDIT_DEMAND,
+        type: 'EDIT_DEMAND',
         payload: demand
     }
 }

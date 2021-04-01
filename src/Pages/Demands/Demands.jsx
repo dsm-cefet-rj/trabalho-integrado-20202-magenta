@@ -1,42 +1,74 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useParams, useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteDemandServer,
+        fetchDemands,
+        selectAllDemands,
+        selectDemandById,
+        addDemandServer,
+        updateDemandServer,
+     } from '../../store/features/demand/DemandSlice';
+
 import { validate as uuidValidate } from 'uuid';
 import { NIL as NIL_UUID } from 'uuid';
 
-import { allDemands } from '../../store/actions/demands';
-
 import Nav from '../../Components/nav/Nav';
-import TableDemands from '../../Components/tables/TableDemands';
-import Clearfix from '../../Components/clearfix/Clearfix';
-import AddModal from '../Modals/addModal/AddModal';
-import EditModal from '../Modals/editModal/EditModal';
-import DeleteModal from '../Modals/deleteModal/DeleteModal';
 
 
 import AddButton from '../../Components/buttons/AddButton';
 import CancelButton from '../../Components/buttons/CancelButton';
-import "../../Styles/css/estilo.css"
+import "../../Styles/css/estilo.css";
 
 
 
- function Demands(props) {
+export default function Demands(props) {
 
-    const demands = [];
+    const history = useHistory();
+    const dispatch = useDispatch()
 
-    props.getDemands()
-    
-    // const demands = props.getDemands();
-    //const [ demands, setDemands ] = State([]);
-    
-    //console.log(props.getDemands().data)
+    const demands = useSelector(selectAllDemands);
+    const status = useSelector(state => state.demands.status);
+   //const error = useSelector(state => state.demands.error);
 
-    const [title, setTitle] = useState('');
-    const [hours, setHours] = useState('');
-    const [specialty, setSpecialty] = useState('');
-    const [deadline, setDeadline] = useState('');
-    const [description, setDescription] = useState('');
+    let { id } = useParams();
+    id = parseInt(id);
 
-    const [ editID, setEditID ] = useState(NIL_UUID);
+    const demandFound = useSelector(state => selectDemandById(state, id))
+
+    const [demand, setDemand] = useState(id ? demandFound ?? {} : {});
+
+    const [actionType,] = useState(
+        id ? demandFound
+            ? 'demands/updateDemand'
+            : 'demands/addDemand'
+            : 'demands/addDemand');
+
+    useEffect(() => {
+        if (status === 'not_loaded') {
+            dispatch(fetchDemands())
+        } else if (status === 'failed') {
+            setTimeout(() => dispatch(fetchDemands()), 2000);
+        }
+    }, [status, dispatch])
+
+
+
+    function handleInputChange(event) {
+        setDemand({ ...demand, [event.target.name]: event.target.value });
+    }
+
+    function handleSubmit(event) {
+        event.preventDefault();
+        if (actionType === 'demands/addProjeto') {
+            dispatch(addDemandServer(demand));
+        } else {
+            dispatch(updateDemandServer(demand));
+        }
+    }
+
+    function handleClickDeleteDemand(id) {
+        dispatch(deleteDemandServer(id));
+    }
 
     function renderRows() {
 
@@ -59,7 +91,6 @@ import "../../Styles/css/estilo.css"
                         </tr>
                     </thead>
                     <tbody>
-
                         {demands.map(demand => {
                             return (
                                 <tr key={demand.title}>
@@ -74,8 +105,20 @@ import "../../Styles/css/estilo.css"
                                     <td>{demand.deadline}</td>
                                     <td>{demand.status}</td>
                                     <td>
-                                        <a className="edit" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Editar" ></i></a>
-                                        <a className="delete" data-toggle="modal"><i className="material-icons" data-toggle="tooltip" title="Cancelar"></i></a>
+                                        <a className="edit" data-toggle="modal">
+                                            <i className="material-icons"
+                                                data-toggle="tooltip"
+                                                title="Editar"
+                                            ></i>
+                                        </a>
+                                        <a className="delete" data-toggle="modal">
+                                            <i className="material-icons"
+                                                data-toggle="tooltip"
+                                                title="Cancelar"
+                                                name="excluir_demand"
+                                                onClick={ () => handleClickDeleteDemand(props.demand.id) }
+                                            ></i>
+                                        </a>
                                     </td>
                                 </tr>
                             )
@@ -86,23 +129,6 @@ import "../../Styles/css/estilo.css"
         )
     }
 
-    function save(event) {
-        event.preventDefault()
-        const code = 1;
-        const newdemand = { code, title, hours, specialty, deadline, description }
-        // setDemands([...demands, newdemand]);
-        clear()
-    }
-
-    function clear() {
-        // setEditID('');
-        // setTitle('');
-        // setHours('');
-        // setSpecialty('');
-        // setDeadline('');
-        // setDescription('');
-    }
-
     function AddModal() {
 
         return (
@@ -111,7 +137,7 @@ import "../../Styles/css/estilo.css"
                 <div id="addEmployeeModal" className="modal fade">
                     <div className="modal-dialog">
                         <div className="modal-content">
-                            <form>
+                            <form onSubmit={handleSubmit}>
                                 <div className="modal-header">
                                     <h4 className="modal-title">Inserir demanda</h4>
                                     <button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -121,47 +147,46 @@ import "../../Styles/css/estilo.css"
                                         <label>Titulo da Demanda</label>
                                         <input type="text"
                                             className="form-control"
-                                            value={title}
-                                            // onChange={event => setTitle(event.target.value)}
+                                            value={demand.title}
                                             required />
                                     </div>
                                     <div className="form-group">
                                         <label>Estimativa de Horas</label>
-                                        <input type="text"
+                                        <input type="number"
                                             className="form-control"
-                                            value={hours}
-                                            // onChange={event => setHours(event.target.value)}
+                                            value={demand.hours}
+                                            onChange={handleInputChange}
                                             required />
                                     </div>
                                     <div className="form-group">
                                         <label>Especialidade Necessária</label>
                                         <input type="text"
                                             className="form-control"
-                                            value={specialty}
-                                            // onChange={event => setSpecialty(event.target.value)}
+                                            value={demand.specialty}
+                                            onChange={handleInputChange}
                                             required />
                                     </div>
                                     <div className="form-group">
                                         <label>Prazo de Entrega</label>
                                         <input type="date"
                                             className="form-control"
-                                            value={deadline}
-                                            // onChange={event => setDeadline(event.target.value)}
+                                            value={demand.deadline}
+                                            onChange={handleInputChange}
                                             required />
                                     </div>
                                     <div className="form-group">
                                         <label>Descrição da Demanda</label>
                                         <textarea
                                             className="form-control"
-                                            value={description}
-                                            // onChange={event => setDescription(event.target.value)}
+                                            value={demand.description}
+                                            onChange={handleInputChange}
                                             required
                                         />
                                     </div>
                                 </div>
                                 <div className="modal-footer">
                                     <input type="button" className="btn btn-default" data-dismiss="modal" defaultValue="Fechar" />
-                                    <input type="submit" className="btn btn-success" data-dismiss="modal" onClick={event => save(event)} />
+                                    <input type="submit" className="btn btn-success" data-dismiss="modal" />
                                 </div>
                             </form>
                         </div>
@@ -237,28 +262,28 @@ import "../../Styles/css/estilo.css"
     //     )
     // }
 
-    function DeleteModal(){
+    function DeleteModal() {
         return (
             <div id="deleteEmployeeModal" className="modal fade">
-            <div className="modal-dialog">
-                <div className="modal-content">
-                    <form>
-                        <div className="modal-header">
-                            <h4 className="modal-title">Cancelar Demanda</h4>
-                            <button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        </div>
-                        <div className="modal-body">
-                            <p>Você tem certeza que quer cancelar essa demanda?</p>
-                            <p className="text-warning"><small>Essa ação não poderá ser desfeita.</small></p>
-                        </div>
-                        <div className="modal-footer">
-                            <input type="button" className="btn btn-default" data-dismiss="modal" defaultValue="Voltar" />
-                            <input type="submit" className="btn btn-danger" defaultValue="Cancelar" />
-                        </div>
-                    </form>
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <form>
+                            <div className="modal-header">
+                                <h4 className="modal-title">Cancelar Demanda</h4>
+                                <button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            </div>
+                            <div className="modal-body">
+                                <p>Você tem certeza que quer cancelar essa demanda?</p>
+                                <p className="text-warning"><small>Essa ação não poderá ser desfeita.</small></p>
+                            </div>
+                            <div className="modal-footer">
+                                <input type="button" className="btn btn-default" data-dismiss="modal" defaultValue="Voltar" />
+                                <input type="submit" className="btn btn-danger" defaultValue="Cancelar" />
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
         )
     }
 
@@ -284,28 +309,10 @@ import "../../Styles/css/estilo.css"
                         </div>
                     </div>
                 </div>
-                {/* {AddModal()} */}
-                <EditModal />
-                <DeleteModal />
+                {AddModal()}
+                {DeleteModal()}
             </div>
         </>
     );
 }
 
-function mapStateToProps(state){
-    return {
-        listDemands: state.demands
-    }
-
-}
-
-function mapActionCreatorsToProps(dispatch){
-    return {
-        getDemands(){
-            const action = allDemands();
-            dispatch(action);
-        }
-    }
-}
-
-export default connect(mapStateToProps, mapActionCreatorsToProps)(Demands)
