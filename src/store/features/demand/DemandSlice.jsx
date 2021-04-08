@@ -4,7 +4,8 @@ import api from "../../../services/api";
 const demandsAdapter = createEntityAdapter();
 
 const initialState = demandsAdapter.getInitialState({
-  status: 'not_loaded',
+  demands:[],
+  status: 'not_loaded', 
   error: null
 });
 
@@ -30,6 +31,7 @@ export const demandSlice = createSlice({
   extraReducers: {
     [fetchDemands.pending]: (state, action) => {state.status = 'loading'},
     [fetchDemands.fulfilled]: (state, action) => {state.status = 'loaded'; demandsAdapter.setAll(state, action.payload);},
+    //[fetchDemands.fulfilled]: (state, action) => fulfillDemandsReucer(state, action.payload),
     [fetchDemands.rejected]: (state, action) => {state.status = 'failed'; state.error = action.error.message},
     [deleteDemandServer.pending]: (state, action) => {state.status = 'loading'},
     [deleteDemandServer.fulfilled]: (state, action) => {state.status = 'deleted'; demandsAdapter.removeOne(state, action.payload);},

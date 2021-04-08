@@ -1,50 +1,61 @@
 {
-  "users": [
-    {
-      "id": 1,
-      "name": "joao",
-      "email": "joao@gmail.com",
-      "password": "123456"
+  "users": {
+    "ids": [1, 2, 3],
+    "entities": {
+      "1": {"id": "user1"},
+      "2": {"id": "user2"},
+      "3": {"id": "user3"}
     }
-  ],
-  "demands": [
-    { 
-      "id":1,
-      "code": "001",
-      "request": "joao",
-      "title": "software maneiro",
-      "hours": "8 horas",
-      "specialty": "programador",
-      "deadline": "05/04/2021",
-      "description": "alguma demanda",
-      "status": "Ativo",
-      "requestID": "1"
-    },
-    {
-      "id":2,
-      "code": "002",
-      "request": "joao",
-      "title": "software 2",
-      "hours": "16 horas",
-      "specialty": "programador",
-      "deadline": "05/04/2021",
-      "description": "alguma outra demanda",
-      "status": "Ativo",
-      "requestID": "1"
-    },
-    {
-      "code": "003",
-      "request": "joao",
-      "title": "logo para a empresa",
-      "hours": "20 horas",
-      "specialty": "Designer",
-      "deadline": "05/04/2021",
-      "description": "alguma outra demanda maneira",
-      "status": "Ativo",
-      "requestID": "1"
+  },
+
+  "demands": {
+    "ids": [1, 2, 3],
+    "entities": {
+      "1": { 
+        "id":1,
+        "code": "001",
+        "request": "joao",
+        "title": "software maneiro",
+        "hours": "8 horas",
+        "specialty": "programador",
+        "deadline": "05/04/2021",
+        "description": "alguma demanda",
+        "status": "Ativo",
+        "requestID": "1"
+      },
+      "2": {
+        "id":2,
+        "code": "002",
+        "request": "joao",
+        "title": "software 2",
+        "hours": "16 horas",
+        "specialty": "programador",
+        "deadline": "05/04/2021",
+        "description": "alguma outra demanda",
+        "status": "Ativo",
+        "requestID": "1"
+      },
+      "3": {
+        "id":3,
+        "code": "003",
+        "request": "joao",
+        "title": "logo para a empresa",
+        "hours": "20 horas",
+        "specialty": "Designer",
+        "deadline": "05/04/2021",
+        "description": "alguma outra demanda maneira",
+        "status": "Ativo",
+        "requestID": "1"
+      }
     }
-  ],
+  },
   "services": {
-    "name": "typicode"
+    "ids": [1, 2, 3],
+    "entities": {
+      "1": {"id": "service1"},
+      "2": {"id": "service2"},
+      "3": {"id": "service3"}
+    }
   }
+  
 }

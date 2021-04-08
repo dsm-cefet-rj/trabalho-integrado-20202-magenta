@@ -7,14 +7,3 @@ export const store = configureStore({
         demands: demandsReducer
     }
 })
-
-
-// const reducers = combineReducers({
-//     demands: 'demandsReducer',
-// })
-
-// function storeConfig() {
-//     return createStore(reducers);
-// }
-
-// export default storeConfig;

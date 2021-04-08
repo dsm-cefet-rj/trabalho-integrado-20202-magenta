@@ -24,7 +24,7 @@ import "../../Styles/css/estilo.css";
 export default function Demands(props) {
 
     const history = useHistory();
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     const demands = useSelector(selectAllDemands);
     const status = useSelector(state => state.demands.status);
@@ -50,8 +50,6 @@ export default function Demands(props) {
             setTimeout(() => dispatch(fetchDemands()), 2000);
         }
     }, [status, dispatch])
-
-
 
     function handleInputChange(event) {
         setDemand({ ...demand, [event.target.name]: event.target.value });
