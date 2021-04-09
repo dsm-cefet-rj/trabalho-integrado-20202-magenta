@@ -4,32 +4,34 @@ import api from "../../../services/api";
 const demandsAdapter = createEntityAdapter();
 
 const initialState = demandsAdapter.getInitialState({
-  demands:[],
   status: 'not_loaded', 
   error: null
 });
 
 export const fetchDemands = createAsyncThunk('demands/fetchDemands', async () => {
-  return await api.get(`/demands`);
+  const response = await api.get(`/demands`)
+  return response.data;
 });
 export const addDemandServer = createAsyncThunk('demands/addDemandServer', async (demand) => {
-  return await api.post(`/demands`, demand);
+  const response = await api.post(`/demands`, demand)
+  return response.data;
 });
 
 export const deleteDemandServer = createAsyncThunk('demands/deleteDemandServer', async (idDemand) => {
-  await api.delete(`/demands/${idDemand}`);
-  return idDemand;
+  const response = await api.delete(`/demands/${idDemand}`);
+  return response.status;
 });
 
 export const updateDemandServer = createAsyncThunk('demands/updateDemandServer', async (demand) => {
-  return await api.put(`/demands/${demand.id}`, demand);
+  const response = await api.put(`/demands/${demand.id}`, demand);
+  return response.data;
 });
 
 export const demandSlice = createSlice({
   name: 'demands',
   initialState: initialState,
   extraReducers: {
-    [fetchDemands.pending]: (state, action) => {state.status = 'loading'},
+    [fetchDemands.pending]: (state, action) => {state.status = 'loading'}, 
     [fetchDemands.fulfilled]: (state, action) => {state.status = 'loaded'; demandsAdapter.setAll(state, action.payload);},
     //[fetchDemands.fulfilled]: (state, action) => fulfillDemandsReucer(state, action.payload),
     [fetchDemands.rejected]: (state, action) => {state.status = 'failed'; state.error = action.error.message},
