@@ -50,14 +50,14 @@ router.route('/')
       res.json(demand);
   }, (err) => next(err))
   .catch((err) => next(err));
-/*
+
   let proxId = 1 + demand.map(p => p.id).reduce((x, y) => Math.max(x,y));
   let demand = {...req.body, id: proxId};
   demand.push(demand);
 
   res.statusCode = 200;
   res.setHeader('Content-Type', 'application/json');
-  res.json(demand);*/
+  res.json(demand);
 })
 
 router.route('/:id')
