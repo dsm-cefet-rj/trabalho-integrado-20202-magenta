@@ -1,85 +1,87 @@
 var express = require('express');
 var router = express.Router();
-const demands = require('../models/demands');
 const bodyParser = require('body-parser');
+const Demands = require('../models/demands');
 
 router.use(bodyParser.json());
 
+
 const mongoose = require('mongoose');
 
-const url = 'mongodb://localhost:27017/pragmapm';
-const connect = mongoose.connect(url);
 
-connect.then((db) => {
-  console.log("Connected correctly to server");
-}, (err) => { console.log(err); });
-
-let demand = [
-  {
-    "id" : 1,
-    "Titulo do Pedido:": "Gabriel",
-    "Especialidade:": "Programador",
-    "Prazo de Entrega:": "08/04/2021",
-    "Estimativa de Horas:": 500
-  },
-  {
-    "id": 2,  
-    "Titulo do Pedido:": "Gabriel",
-    "Especialidade:": "Programador",
-    "Prazo de Entrega:": "23/04/2021",
-    "Estimativa de Horas:": 900
-  }
-];
 
 
 /* GET users listing. */
 router.route('/')
-.get((req, res, next) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'application/json');
-  res.json(demand);
+.get(async (req, res, next) => {
+
+  try{
+    const projetosBanco = await Projetos.find({});
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json');
+    res.json(projetosBanco);
+  }catch(err){
+    err = {};
+    res.statusCode = 404;
+    res.json(err);
+  }
 
 })
 .post((req, res, next) => {
-
-  demands.create(req.body)
-  .then((demand) => {
-      console.log('demand criado ', demand);
+  Demands.create(req.body)
+  .then((projeto) => {
+      console.log('Projeto criado ', projeto);
       res.statusCode = 200;
       res.setHeader('Content-Type', 'application/json');
-      res.json(demand);
+      res.json(projeto);
   }, (err) => next(err))
   .catch((err) => next(err));
-
-  let proxId = 1 + demand.map(p => p.id).reduce((x, y) => Math.max(x,y));
-  let demand = {...req.body, id: proxId};
-  demand.push(demand);
-
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'application/json');
-  res.json(demand);
 })
 
 router.route('/:id')
+.get(async (req, res, next) => {
+  let err;
+  res.setHeader('Content-Type', 'application/json');
+  try{
+    const resp = await Projetos.findById(req.params.id);
+    if(resp != null){
+      res.statusCode = 200;
+      res.json(resp);
+    }else{
+      err = {};
+      res.statusCode = 404;
+      res.json(err);
+    }
+  }catch(errParam){
+    console.log(errParam);
+    res.statusCode = 404;
+    res.json({});
+  }  
+})
+
 .delete((req, res, next) => {
-
-  demand = demand.filter(function(value, index, arr){ 
-    return value.id != req.params.id;
-  });
-
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'application/json');
-  res.json(req.params.id);
+  Demands.findByIdAndRemove(req.params.id)
+      .then((resp) => {
+          res.statusCode = 200;
+          res.setHeader('Content-Type', 'application/json');
+          res.json(resp.id);
+      }, (err) => next(err))
+      .catch((err) => next(err));
 })
+
 .put((req, res, next) => {
-
-  let index = demand.map(p => p.id).indexOf(req.params.id);
-  demand.splice(index, 1, req.body);
-
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'application/json');
-  res.json(req.body);
+  Demands.findByIdAndUpdate(req.params.id, {
+    $set: req.body
+  }, { new: true })
+  .then((projeto) => {
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'application/json');
+      res.json(projeto);
+  }, (err) => next(err))
+  .catch((err) => next(err));
 })
+
+
 
 
 module.exports = router;

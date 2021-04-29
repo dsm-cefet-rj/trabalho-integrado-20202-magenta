@@ -15,6 +15,6 @@ const projetoSchema = new Schema({
 
 projetoSchema.plugin(normalize);
 
-var Projetos = mongoose.model('demand', projetoSchema);
+var Demands = mongoose.model('demand', projetoSchema);
 
-module.exports = Projetos;
+module.exports = Demands;
